@@ -50,3 +50,47 @@
 
 + 
 
+### [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+
++ ```java
+  class Solution {
+      public int minDepth(TreeNode root) {
+      if(root==null) return 0;
+      else if(root.left==null&&root.right==null) return 1;
+      int a = minDepth(root.left);
+      int b = minDepth(root.right);
+      if(a==0||b==0)return a+b+1;
+      else return Math.min(a,b)+1;
+      }
+  }
+  ```
+
+### [107. 二叉树的层次遍历 II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/)
+
++ ```java
+  class Solution {
+      LinkedList<List<Integer>> list = new LinkedList<>();
+      LinkedList<TreeNode> queue = new LinkedList<>();
+      
+      TreeNode node;
+      public List<List<Integer>> levelOrderBottom(TreeNode root) {
+          if(root==null) return list; 
+          queue.add(root);
+          while(!queue.isEmpty()){
+              List<Integer> array = new ArrayList<>();
+              int count = queue.size();
+              for(int i = 0; i<count; i++){
+                  node = queue.removeFirst();
+                  if(node.left!=null)
+                      queue.addLast(node.left);
+                  if(node.right!=null)
+                      queue.addLast(node.right);
+                  array.add(node.val);
+              }
+              list.addFirst(array);
+          }
+          return list;
+      } 
+  }
+  ```
+
