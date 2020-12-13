@@ -176,23 +176,24 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
 
 ### 3.1.1 Activity 生命周期
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\activity.png)
+![activity](/Users/kai/GitDocuments/src/Androiddddd/pictures/activity.png)
 
 + **attention**
-  +  #### onStart() & onStop()、onResume()  & onPause() 除了回调时刻，在实际使用中无任何区别
-
+  
++  #### onStart() & onStop()、onResume()  & onPause() 除了回调时刻，在实际使用中无任何区别
+  
      + onStart()& onStop() ：从Activity是否完全可见的角度 进行回调;
-     + onResume() & onPause()： 从 Activity`是否位于前台（UI最顶层）的角度进行回调；
-
-  +  #### 当前Activity为A，此时用户打开ActivityB后，那么A的onPause（）和B的onResume()哪个方法先执行？
-
+   + onResume() & onPause()： 从 Activity`是否位于前台（UI最顶层）的角度进行回调；
+  
++  #### 当前Activity为A，此时用户打开ActivityB后，那么A的onPause（）和B的onResume()哪个方法先执行？
+  
      + 先A的onPause（），然后B的onResume（）
      + Activity的启动过程：由ActivityManagerService（AMS）对栈内的Activity状态进行同步管理 & 规定：**新Activity启动前，栈顶的Activity必须先onPause（），才能启动新的Activity（执行onResume()）**
      + 为了让新的Activity尽快切换到前台，在 onPause()尽量不要做耗时 / 重量级操作
 
 ### 3.1.2 常见场景的生命周期调用方式
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\activity-2.png)
+### <img src="/Users/kai/GitDocuments/src/Androiddddd/pictures/activity-2.png" alt="activity-2" style="zoom:150%;" />
 
 + **暂停Activity**
 
@@ -328,15 +329,13 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
 
   + 创建Activity之后翻转屏幕  Activity生命周期方法调用过程：
 
-    ![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\activity3.png)
-
-    
+    ![activity3](/Users/kai/GitDocuments/src/Androiddddd/pictures/activity3.png)
 
     
 
 ### 3.1.3  Activity与Fragment生命周期对比
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\activity-fragment.png)
+![activity-fragment](/Users/kai/GitDocuments/src/Androiddddd/pictures/activity-fragment.png)
 
 ### 3.1.4 Activity Task的管理
 
@@ -383,9 +382,7 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
   + singleTask
   + singleInstance
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\activity-launchMode.png)
-
-
+![activity-launchMode](/Users/kai/GitDocuments/src/Androiddddd/pictures/activity-launchMode.png)
 
 ## 3.2 Service
 
@@ -411,7 +408,7 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
 
 + **线程生命周期**
 
-  ![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\service-thread.png)
+  ![service-thread](/Users/kai/GitDocuments/src/Androiddddd/pictures/service-thread.png)
 
 + **创建线程的三种方式**
 
@@ -421,7 +418,7 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
 
 ### 3.2.2 Service 生命周期
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\service2.png)
+![service2](/Users/kai/GitDocuments/src/Androiddddd/pictures/service2.png)
 
 + **相关方法**
   + onCreate()：当Service第一次被创建后立即回调该方法，该方法在整个生命周期 中只会调用一次！
@@ -444,7 +441,7 @@ HTTP的响应报文由状态行、消息报头、空行、响应正文组成。�
 
   + 如果Service已经由某个客户端通过StartService()启动,接下来由其他客户端 再调用bindService(）绑定到该Service后调用unbindService()解除绑定最后在 调用bindService()绑定到Service的话,此时所触发的生命周期方法如下:
      **onCreate( )->onStartCommand( )->onBind( )->onUnbind( )->onRebind( )**
-     **PS:**前提是:onUnbind()方法返回true!!! 这里或许部分读者有疑惑了,调用了unbindService后Service不是应该调用 onDistory()方法么!其实这是因为这个Service是由我们的StartService来启动的 ,所以你调用onUnbind()方法取消绑定,Service也是不会终止的!
+     **PS:**前提是:onUnbind()方法返回true!!! 这里或许部分读者有疑惑了,调用了unbindService后Service不是应该调用 onDestory()方法么!其实这是因为这个Service是由我们的StartService来启动的 ,所以你调用onUnbind()方法取消绑定,Service也是不会终止的!
      **得出的结论:** 假如我们使用bindService来绑定一个启动的Service,注意是已经启动的Service!!! 系统只是将Service的内部IBinder对象传递给Activity,并不会将Service的生命周期 与Activity绑定,因此调用unBindService( )方法取消绑定时,Service也不会被销毁
 
 ### 3.2.3 IntentService
@@ -923,7 +920,7 @@ Activity界面中的一部分，可理解为模块化的Activity
 
 ## 5.2 生命周期
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\fragment2.jpg)
+![fragment2](/Users/kai/GitDocuments/src/Androiddddd/pictures/fragment2.jpg)
 
 > ①Activity加载Fragment的时候,依次调用下面的方法: **onAttach** ->  **onCreate** -> **onCreateView** -> **onActivityCreated** -> **onStart** ->**onResume**
 >
@@ -931,7 +928,7 @@ Activity界面中的一部分，可理解为模块化的Activity
 >
 > ③当对话框关闭,Activity又获得了焦点: **onResume**
 >
-> ④当我们替换Fragment,并调用addToBackStack()将他添加到Back栈中 **onPause -> onStop -> onDestoryView** ！！**注意**,此时的Fragment还没有被销毁哦!!!
+> ④当我们替换Fragment,并调用addToBackStack()将他添加到Back栈中 **onPause -> onStop -> onDestoryView** ！！**注意**,此时的Fragment还没有被销毁!!!
 >
 > ⑤当我们按下键盘的回退键，Fragment会再次显示出来: **onCreateView -> onActivityCreated -> onStart -> onResume**
 >
@@ -941,7 +938,7 @@ Activity界面中的一部分，可理解为模块化的Activity
 
 ### 5.3.1 静态加载Fragment
 
-![](E:\Kai\OneDrive\文档\作业\Kotlin\pictures\fragment3.png)
+![fragment3](/Users/kai/GitDocuments/src/Androiddddd/pictures/fragment3.png)
 
 ### 5.3.2 动态加载Fragment
 

@@ -68,3 +68,64 @@
 
   
 
+## 调起地图
+
+#### 高德
+
++ ```java
+      /**                 调起高德地图
+       *                  https://lbs.amap.com/api/amap-mobile/guide/android/route
+       * @param dev       起终点是否偏移(0:lat 和 lon 是已经加密后的,不需要国测加密; 1:需要国测加密)
+       * @param t         t = 0（驾车）= 1（公交）= 2（步行）= 3（骑行）= 4（火车）= 5（长途客车）（骑行仅在V7.8.8以上版本支持）
+       */
+      private void openGaoDeMap(Context context, String sName, String edName, LatLng sLatLng, LatLng edLatLng, int dev, int t){
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.addCategory(Intent.CATEGORY_DEFAULT);
+  //        amapuri://route/plan/?sid=&slat=39.92848272&slon=116.39560823&sname=A&did=&dlat=39.98848272&dlon=116.47560823&dname=B&dev=0&t=0
+          Uri uri = Uri.parse("amapuri://route/plan/?sid="
+                          + "&slat=" + sLatLng.latitude
+                          + "&slon=" + sLatLng.longitude
+                          + "&sname=" + sName
+                          + "&did="
+                          + "&dlat="+edLatLng.latitude
+                          + "&dlon="+edLatLng.longitude
+                          + "&dname="+edName
+                          + "&dev="+dev
+                          + "&t="+t
+          );
+  
+          intent.setData(uri);
+          intent.setPackage("com.autonavi.minimap");
+          context.startActivity(intent);
+      }
+  ```
+
+#### 腾讯
+
++ ```java
+      /**
+       *          调起腾讯地图
+       *          https://lbs.qq.com/webApi/uriV1/uriGuide/uriMobileRoute
+       */
+      private void openTencentMap(Context context, String sName, String edName, LatLng sLatLng, LatLng edLatLng){
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.addCategory(Intent.CATEGORY_DEFAULT);
+          Uri uri = Uri.parse("qqmap://map/routeplan?"
+                  + "type=drive"
+                  + "&from=" + sName
+                  + "&fromcoord=" + sLatLng.latitude
+                  + "," + sLatLng.longitude
+  //               + "&fromcoord=39.994745,116.247282"
+                  + "&to=" + edName
+                  + "&tocoord=" + edLatLng.latitude
+                  + "," + edLatLng.longitude
+  //               + "&tocoord=39.867192,116.493187"
+  //                + "&referer=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"
+          );
+          intent.setData(uri);
+          intent.setPackage("com.tencent.map");
+          context.startActivity(intent);
+      }
+  ```
+
++ 
